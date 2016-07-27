@@ -4,7 +4,7 @@ Script for quick registration of "disposable" PTC accounts. For "disposable" I m
 
 The accounts are registered with a random generated email, if you want a confirmed account with a valid email, you can provide your emails through an external configuration file.
 
-*Pull requests are very welcome*, since this is a project of a couple of hours and can be improved and extended for sure.
+**Pull requests are very welcome**, since this is a project of a couple of hours, it served its scope but it could be more powerful and configurable.
 
 Requirements
 ============
@@ -13,6 +13,6 @@ Requirements
 
 Use
 ============
-`python script.py` and it will generate one random account
-`python script.py -random N` the script will generate N random accounts
-`python script.py -mails` the script will generate N random accounts, using each of the line of emails.txt in the script folder as email address.
+* `python script.py`will generate one random account
+* `python script.py -random N` will generate N random accounts
+* `python script.py -mails` will generate N random accounts, using each of the line of emails.txt in the script folder as email address.
