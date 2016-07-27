@@ -7,6 +7,7 @@ import requests
 import sys
 import time
 import traceback
+import uuid
 
 url1 = 'https://club.pokemon.com/uk/pokemon-trainer-club/sign-up/'
 url2 = 'https://club.pokemon.com/uk/pokemon-trainer-club/parents/sign-up'
@@ -14,13 +15,13 @@ url2 = 'https://club.pokemon.com/uk/pokemon-trainer-club/parents/sign-up'
 class PtcRegistrationError(Exception):
     pass
 
-# emails = [email.strip() for email in open("emails.txt", "r").readlines()]
-# birth_dates = [birth_date.strip() for birth_date in open("random_birth_dates.txt", "r").readlines()]
-# countries = [country.strip() for country in open("random_countries.txt", "r").readlines()]
-
+#delay configuration in seconds
 seconds_between_each_call = 2
 seconds_between_each_registration = 10
 
+#preset data
+birth_dates = [birth_date.strip() for birth_date in open("random_birth_dates.txt", "r").readlines()]
+countries = [country.strip() for country in open("random_countries.txt", "r").readlines()]
 
 class PtcRegistration:
     def __init__(self, birth_date, country, username, password, email):
@@ -103,9 +104,57 @@ class PtcRegistration:
         return bool(re.search('Hello! Thank you for creating an account!', third_page_body))
 
 
+def get_random_alphanumeric_string(size):
+    return str(uuid.uuid4().get_hex().upper()[0:size])
 
 
+def generate_random_user():
+    random_10_char_string = get_random_alphanumeric_string(10)
+    random_12_char_string = get_random_alphanumeric_string(12)
 
-registration = PtcRegistration("1990-07-03","US","PIPPOBAUDOBAU5","password123","pippomagic5@gmailg.com")
-registration.execute();
+    registration = PtcRegistration(random.choice(birth_dates),
+                                   random.choice(countries),
+                                   random_12_char_string,  # username
+                                   random_10_char_string,  # password
+                                   '%s@hotmail.com' % random_12_char_string)
+    registration.execute()
+
+def generate_from_email_list():
+    emails = [email.strip() for email in open("emails.txt", "r").readlines()]
+    for email in emails:
+        registration = PtcRegistration(random.choice(birth_dates),
+                                       random.choice(countries),
+                                       get_random_alphanumeric_string(12),
+                                       get_random_alphanumeric_string(10),
+                                       email)
+        registration.execute()
+        time.sleep(seconds_between_each_registration)
+
+
+def generate_n_random_accounts(number_of_accounts):
+    for i in range(0, number_of_accounts):
+        generate_random_user()
+        time.sleep(seconds_between_each_registration)
+
+
+def main(argv):
+    if len(argv) == 0:
+        generate_random_user()
+        sys.exit(0)
+
+    if argv[0] == '-mails':
+        generate_from_email_list()
+        sys.exit(0)
+
+    if argv[0] == '-random':
+        accounts = int(argv[1])
+        generate_n_random_accounts(accounts)
+        sys.exit(0)
+
+    raise Exception('invalid arguments %s' % argv)
+
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
+
 
