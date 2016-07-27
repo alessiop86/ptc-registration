@@ -1,6 +1,6 @@
 ptc-registration
 ============
-Script for quick registration of "disposable" PTC accounts. For "disposable" I mean unconfirmed accounts, that will be rendered inactive after 48 hours from the registration.
+Script for quick registration of "disposable" PTC (Pokèmon Trainer Club) accounts. For "disposable" I mean unconfirmed accounts, that will be rendered inactive after 48 hours from the registration.
 
 The accounts are registered with a random generated email, if you want a confirmed account with a valid email, you can provide your emails through an external configuration file.
 
