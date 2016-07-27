@@ -90,6 +90,7 @@ ENV/
 
 
 #pycharm
+.idea
 .idea/workspace.xml
 
 #app specific ignores
