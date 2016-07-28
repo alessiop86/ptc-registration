@@ -10,6 +10,7 @@ Requirements
 ============
 * Python 2.7 (not sure about different versions, if you use it with different versions, please let me know and I'll update the README.md)
 * **[Requests](https://github.com/kennethreitz/requests)** >= 2.0
+* If you use Python < 2.7.9 and you have _SNIMissingWarning_,_InsecurePlatformWarning_ or other SSL issues, try to install the security "extra" package of requests `pip install requests[security]`
 
 Use
 ============
